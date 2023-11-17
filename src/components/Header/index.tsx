@@ -1,28 +1,12 @@
-import { Button } from '@ensdomains/thorin'
 import { APPLICATION_WIDTH } from '@/constants'
 import styled from 'styled-components'
-
-import { useMetamask } from '@/services'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export const Header = () => {
-    const { connect, disconnect, connected, chainId, account } = useMetamask()
-
     return (
         <Container>
-            ``
             <Content>
-                <Button width='auto' onClick={connected ? disconnect : connect}>
-                    {connected ? 'Disconnect' : 'Connect'}
-                </Button>
-                {connected && (
-                    <div>
-                        <>
-                            {chainId && `Connected chain: ${chainId}`}
-                            <p></p>
-                            {account && `Connected account: ${account}`}
-                        </>
-                    </div>
-                )}
+                <ConnectButton />
             </Content>
         </Container>
     )

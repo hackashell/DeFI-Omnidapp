@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-import { MetamaskProvider, StyledComponentsProvider } from '@/providers'
+import { StyledComponentsProvider, WagmiProvider } from '@/providers'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <MetamaskProvider>
+        <WagmiProvider>
             <StyledComponentsProvider>
                 <App />
             </StyledComponentsProvider>
-        </MetamaskProvider>
+        </WagmiProvider>
     </React.StrictMode>
 )
