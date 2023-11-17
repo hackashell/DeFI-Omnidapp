@@ -52,8 +52,15 @@ const darkTheme: DefaultTheme = {
     }
 }
 
-const GlobalStyles = createGlobalStyle`    
+const GlobalStyles = createGlobalStyle`
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
     :root {
+        width: 100%;
         position: relative;
 
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -73,7 +80,6 @@ const GlobalStyles = createGlobalStyle`
     body {
         width: 100%;
         min-height: 100vh;
-        display: flex;
         justify-content: center;
         place-items: center;
         color: ${({ theme }) => theme.colors.no12textContrastHigh};
@@ -114,6 +120,7 @@ export function StyledComponentsProvider({
 const Container = styled.div`
     width: ${APPLICATION_WIDTH};
     max-width: ${APPLICATION_WIDTH};
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
