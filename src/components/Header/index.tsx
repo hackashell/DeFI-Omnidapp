@@ -4,21 +4,24 @@ import styled from 'styled-components'
 import { useMetamask } from '@/services'
 
 export const Header = () => {
-    const { connect, connected, chainId, account } = useMetamask()
+    const { connect, disconnect, connected, chainId, account } = useMetamask()
 
     return (
         <Container>
-            <button onClick={connect}>Connect</button>
-            {connected && (
-                <div>
-                    <>
-                        {chainId && `Connected chain: ${chainId}`}
-                        <p></p>
-                        {account && `Connected account: ${account}`}
-                    </>
-                </div>
-            )}
-            <Content>HEADER GOES HERE PETAR! 🤓</Content>
+            <Content>
+                <button onClick={connected ? disconnect : connect}>
+                    {connected ? 'Disconnect' : 'Connect'}
+                </button>
+                {connected && (
+                    <div>
+                        <>
+                            {chainId && `Connected chain: ${chainId}`}
+                            <p></p>
+                            {account && `Connected account: ${account}`}
+                        </>
+                    </div>
+                )}
+            </Content>
         </Container>
     )
 }

@@ -15,9 +15,21 @@ export const useMetamask = () => {
         }
     }
 
+    const disconnect = async () => {
+        try {
+            if (sdk) {
+                await sdk.terminate()
+                setAccount('')
+            }
+        } catch (err) {
+            console.warn('Failed to disconnect..', err)
+        }
+    }
+
     return {
         account,
         connect,
+        disconnect,
         chainId,
         connected,
         connecting,
