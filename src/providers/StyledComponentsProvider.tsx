@@ -71,9 +71,10 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        min-width: 320px;
+        width: 100%;
         min-height: 100vh;
         display: flex;
+        justify-content: center;
         place-items: center;
         color: ${({ theme }) => theme.colors.no12textContrastHigh};
         background-color: ${({ theme }) => theme.colors.no1appBackground};
