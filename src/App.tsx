@@ -1,5 +1,9 @@
+import styled from 'styled-components'
+
 function App() {
-    return <div>We're ready! 🚀</div>
+    return <Container>We're ready! 🚀</Container>
 }
+
+const Container = styled.div``
 
 export default App
