@@ -1,5 +1,7 @@
+import { Swapbox } from '@/components'
+
 function App() {
-    return <>We're ready! 🚀</>
+    return <Swapbox />
 }
 
 export default App
