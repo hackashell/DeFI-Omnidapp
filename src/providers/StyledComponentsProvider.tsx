@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react'
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { sky, skyDark } from '@radix-ui/colors'
+
+import { APPLICATION_WIDTH } from '@/constants'
 
 const lightTheme = {
     colors: {
@@ -88,7 +90,16 @@ export function StyledComponentsProvider({
     return (
         <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>
             <GlobalStyles />
-            {children}
+            <Container>{children}</Container>
         </ThemeProvider>
     )
 }
+
+const Container = styled.div`
+    width: ${APPLICATION_WIDTH};
+    max-width: ${APPLICATION_WIDTH};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+`
