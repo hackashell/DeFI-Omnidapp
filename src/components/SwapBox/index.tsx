@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CurrencyItem, SwitchCurrenciesButton } from './components'
+import { CurrencyItem, SwapButton, SwitchCurrenciesButton } from './components'
 
 import { SWAPBOX_WIDTH } from './constants'
 
@@ -8,6 +8,7 @@ export const Swapbox = () => (
         <CurrencyItem />
         <SwitchCurrenciesButton />
         <CurrencyItem />
+        <SwapButton />
     </Container>
 )
 
