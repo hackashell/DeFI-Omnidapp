@@ -7,9 +7,18 @@ import {
     ELEMENTS_BORDER_SECONDARY,
     ELEMENTS_SPACING,
     BorderStyle
-} from '../constants'
+} from '../../constants'
 
-export const CurrencyItem = () => <CurrencyContainer></CurrencyContainer>
+import { CurrencyAmount } from './CurrencyAmount'
+
+export const CurrencyItem = () => (
+    <CurrencyContainer>
+        <CurrencyAmountContainer>
+            <CurrencyAmount />
+        </CurrencyAmountContainer>
+        <CurrencyInfoContainer></CurrencyInfoContainer>
+    </CurrencyContainer>
+)
 
 const CurrencyContainer = styled.div<{ lowerItem?: boolean }>`
     width: 100%;
@@ -47,4 +56,12 @@ const CurrencyContainer = styled.div<{ lowerItem?: boolean }>`
         -webkit-mask-composite: destination-out;
         mask-composite: exclude;
     }
+`
+
+const CurrencyAmountContainer = styled.div`
+    width: 35%;
+`
+
+const CurrencyInfoContainer = styled.div`
+    width: 60%;
 `
