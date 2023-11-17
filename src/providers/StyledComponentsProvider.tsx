@@ -2,6 +2,8 @@ import { ReactNode, useState } from 'react'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { sky, skyDark } from '@radix-ui/colors'
 
+import { ThemeSwitch } from '@/components'
+
 import { APPLICATION_WIDTH } from '@/constants'
 
 const lightTheme = {
@@ -48,6 +50,8 @@ const darkTheme = {
 
 const GlobalStyles = createGlobalStyle`    
     :root {
+        position: relative;
+
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
         line-height: 1.5;
         font-weight: 400;
@@ -85,11 +89,17 @@ interface StyledComponentsProviderProps {
 export function StyledComponentsProvider({
     children
 }: StyledComponentsProviderProps) {
-    const [theme] = useState(Theme.DARK)
+    const [theme, setTheme] = useState(Theme.DARK)
+
+    const themeSwitchHandler = () =>
+        setTheme(currentTheme =>
+            currentTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
+        )
 
     return (
         <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>
             <GlobalStyles />
+            <ThemeSwitch themeSwitchHandler={themeSwitchHandler} />
             <Container>{children}</Container>
         </ThemeProvider>
     )
