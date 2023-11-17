@@ -1,12 +1,16 @@
 import { ReactNode, useState } from 'react'
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
+import styled, {
+    ThemeProvider,
+    createGlobalStyle,
+    DefaultTheme
+} from 'styled-components'
 import { sky, skyDark } from '@radix-ui/colors'
 
 import { ThemeSwitch } from '@/components'
 
 import { APPLICATION_WIDTH } from '@/constants'
 
-const lightTheme = {
+const lightTheme: DefaultTheme = {
     colors: {
         no1appBackground: sky.sky1,
         no2subtleBackground: sky.sky2,
@@ -27,7 +31,7 @@ const lightTheme = {
     }
 }
 
-const darkTheme = {
+const darkTheme: DefaultTheme = {
     colors: {
         no1appBackground: skyDark.sky1,
         no2subtleBackground: skyDark.sky2,
