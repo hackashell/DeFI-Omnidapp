@@ -7,6 +7,7 @@
   libs = ["lib"]
   remappings = [
    '@openzeppelin=node_modules/@openzeppelin',
+   'v4-core/=lib/v4-core/',
    '@shell-v2-ocean=node_modules/shell-v2-ocean',
    'abdk-libraries-solidity=node_modules/abdk-libraries-solidity'
   ]
