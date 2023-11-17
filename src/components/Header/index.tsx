@@ -1,9 +1,12 @@
+import { Button } from '@ensdomains/thorin'
 import { APPLICATION_WIDTH } from '@/constants'
 import styled from 'styled-components'
 
 export const Header = () => (
     <Container>
-        <Content>HEADER GOES HERE PETAR! 🤓</Content>
+        <Content>
+            <Button>Connect Wallet</Button>
+        </Content>
     </Container>
 )
 
