@@ -9,11 +9,11 @@ export const Header = () => {
 
     return (
         <Container>
+            ``
             <Content>
-                <Button>Petar Button</Button>
-                <button onClick={connected ? disconnect : connect}>
+                <Button width='auto' onClick={connected ? disconnect : connect}>
                     {connected ? 'Disconnect' : 'Connect'}
-                </button>
+                </Button>
                 {connected && (
                     <div>
                         <>
@@ -35,5 +35,3 @@ const Content = styled.div`
     max-width: ${APPLICATION_WIDTH};
     margin: 0 auto;
 `
-
-const ConnectButton = styled.button``
