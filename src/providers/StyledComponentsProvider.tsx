@@ -6,7 +6,7 @@ import styled, {
 } from 'styled-components'
 import { sky, skyDark } from '@radix-ui/colors'
 
-import { ThemeSwitch } from '@/components'
+import { ThemeSwitch, BackgroundImage } from '@/components'
 
 import { APPLICATION_WIDTH } from '@/constants'
 
@@ -103,6 +103,7 @@ export function StyledComponentsProvider({
     return (
         <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>
             <GlobalStyles />
+            <BackgroundImage />
             <ThemeSwitch themeSwitchHandler={themeSwitchHandler} />
             <Container>{children}</Container>
         </ThemeProvider>
