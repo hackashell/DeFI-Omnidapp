@@ -40,7 +40,11 @@ export const Swapbox = () => {
                 selectedCurrency={outputCurrency}
                 onCurrencySelect={handleOutputCurrencySelect}
             />
-            <SwapButton chain={chain} isFetching={isFetching} />
+            <SwapButton
+                inputAmount={inputAmount}
+                chain={chain}
+                isFetching={isFetching}
+            />
         </Container>
     )
 }

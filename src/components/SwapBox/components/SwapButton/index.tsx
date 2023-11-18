@@ -1,22 +1,30 @@
+import { TokenInfo } from '@uniswap/token-lists'
 import styled from 'styled-components'
 
 import { Chain } from 'viem'
 
 type SwapButtonProps = {
+    inputAmount: TokenInfo
     chain: Chain | undefined
     isFetching: boolean
 }
 
-export const SwapButton = ({ chain, isFetching }: SwapButtonProps) => {
+export const SwapButton = ({
+    chain,
+    inputAmount,
+    isFetching
+}: SwapButtonProps) => {
     const getButtonLabel = () => {
         if (!chain) return 'Please Connect a Wallet'
+
+        if (!inputAmount) return 'Enter the Amount'
 
         if (isFetching) return 'FETCHING...'
 
         return 'APPROVE'
     }
     return (
-        <StyledButton disabled={!chain || isFetching}>
+        <StyledButton disabled={!chain || !inputAmount || isFetching}>
             {getButtonLabel()}
         </StyledButton>
     )
