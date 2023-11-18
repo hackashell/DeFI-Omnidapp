@@ -22,34 +22,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
       Swap
     }
 
-    /////////////////////////////////////////////////////////////////////
-    //                             Events                              //
-    /////////////////////////////////////////////////////////////////////
-    event Swap(
-        uint256 inputToken,
-        uint256 inputAmount,
-        uint256 outputAmount,
-        bytes32 slippageProtection,
-        address user,
-        bool computeOutput
-    );
-    event Deposit(
-        uint256 inputToken,
-        uint256 inputAmount,
-        uint256 outputAmount,
-        bytes32 slippageProtection,
-        address user,
-        bool computeOutput
-    );
-    event Withdraw(
-        uint256 outputToken,
-        uint256 inputAmount,
-        uint256 outputAmount,
-        bytes32 slippageProtection,
-        address user,
-        bool computeOutput
-    );
-
     using SafeERC20 for IERC20Metadata;
     using CurrencyLibrary for Currency;
 
@@ -66,9 +38,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
 
     /// @notice y token Ocean ID.
     uint256 public immutable yToken;
-
-    /// @notice map token Ocean IDs to corresponding Curve pool indices
-    mapping(uint256 => int128) indexOf;
 
     /// @notice The underlying token decimals wrt to the Ocean ID
     mapping(uint256 => uint8) decimals;
@@ -89,7 +58,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
 
         address yTokenAddress = convertType(key_.currency1);
         yToken = _calculateOceanId(yTokenAddress, 0);
-        indexOf[yToken] = int128(1);
         underlying[yToken] = yTokenAddress;
         decimals[yToken] = IERC20Metadata(yTokenAddress).decimals();
         _approveToken(yTokenAddress);
@@ -103,7 +71,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         IPoolManager(primitive_).initialize(key_, sqrtPriceX96_, hookData_);
     }
 
-    function convertType(Currency currency_) internal view returns(address underlyingToken) {
+    function convertType(Currency currency_) public view returns(address underlyingToken) {
       assembly {
           underlyingToken := currency_
       }
@@ -166,9 +134,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
     {
         uint256 rawInputAmount = _convertDecimals(NORMALIZED_DECIMALS, decimals[inputToken], inputAmount);
 
-        ComputeType action = _determineComputeType(inputToken, outputToken);
-
-        uint256 rawOutputAmount;
+        _determineComputeType(inputToken, outputToken);
 
         (uint160 sqrtPriceX96, , , ) = IPoolManager(primitive).getSlot0(poolId);
 
@@ -181,26 +147,14 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         });
 
         IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
-            zeroForOne: true,
-            amountSpecified: int(inputAmount),
+            zeroForOne: poolKey.currency0 == Currency.wrap(underlying[inputToken]) ? true : false,
+            amountSpecified: int(rawInputAmount),
             sqrtPriceLimitX96: sqrtPriceX96
         });
 
-        // avoid multiple SLOADS
-        int128 indexOfInputAmount = indexOf[inputToken];
-        int128 indexOfOutputAmount = indexOf[outputToken];
+        bytes memory result = IPoolManager(primitive).lock(abi.encode(poolKey, params, block.timestamp + 100, outputToken, minimumOutputAmount));
 
-        if (action == ComputeType.Swap) {
-            IPoolManager(primitive).lock(abi.encode(poolKey, params, block.timestamp + 100));
-        }
-
-        // outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, rawOutputAmount);
-
-        // if (uint256(minimumOutputAmount) > outputAmount) revert SLIPPAGE_LIMIT_EXCEEDED();
-
-        // if (action == ComputeType.Swap) {
-        //     emit Swap(inputToken, inputAmount, outputAmount, minimumOutputAmount, primitive, true);
-        // }
+        outputAmount = uint256(bytes32(result));
     }
 
     function lockAcquired(bytes calldata data) external returns (bytes memory) {
@@ -211,41 +165,49 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         (
             PoolKey memory poolKey,
             IPoolManager.SwapParams memory swapParams,
-            uint256 deadline
-        ) = abi.decode(data, (PoolKey, IPoolManager.SwapParams, uint256));
+            uint256 deadline,
+            uint256 outputToken,
+            bytes32 minimumOutputAmount
+        ) = abi.decode(data, (PoolKey, IPoolManager.SwapParams, uint256, uint256, bytes32));
 
         if (block.timestamp > deadline) {
             revert();
         }
 
         BalanceDelta delta = IPoolManager(primitive).swap(poolKey, swapParams, new bytes(0));
+        
+        uint256 outputAmountForCurrency0;
+        uint256 outputAmountForCurrency1;
+        outputAmountForCurrency0 = _settleCurrencyBalance(poolKey.currency0, delta.amount0(), outputToken, minimumOutputAmount);
+        outputAmountForCurrency1 = _settleCurrencyBalance(poolKey.currency1, delta.amount1(), outputToken, minimumOutputAmount);
 
-        _settleCurrencyBalance(poolKey.currency0, delta.amount0());
-        _settleCurrencyBalance(poolKey.currency1, delta.amount1());
-
-        return new bytes(0);
+        return outputAmountForCurrency0 > outputAmountForCurrency1 ? new bytes(outputAmountForCurrency0) : new bytes(outputAmountForCurrency1); 
     }
 
     function _settleCurrencyBalance(
         Currency currency,
-        int128 deltaAmount
-    ) private {
+        int128 deltaAmount,
+        uint256 outputToken,
+        bytes32 minimumOutputAmount
+    ) private returns (uint256 outputAmount) {
         if (deltaAmount < 0) {
             IPoolManager(primitive).take(currency, msg.sender, uint128(-deltaAmount));
-            return;
+            outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, uint128(-deltaAmount));
+
+            if (uint256(minimumOutputAmount) > outputAmount) revert SLIPPAGE_LIMIT_EXCEEDED();
         }
 
         if (currency.isNative()) {
             IPoolManager(primitive).settle{value: uint128(deltaAmount)}(currency);
-            return;
-        }
-
-        IERC20Metadata(Currency.unwrap(currency)).safeTransferFrom(
+        } else {
+            IERC20Metadata(Currency.unwrap(currency)).safeTransferFrom(
             msg.sender,
             primitive,
             uint128(deltaAmount)
         );
+
         IPoolManager(primitive).settle(currency);
+        }
     }
 
     /**
