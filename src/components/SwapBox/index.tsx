@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { CurrencyItem, SwapButton, SwitchCurrenciesButton } from './components'
 
 import { SWAPBOX_WIDTH } from './constants'
-import { useSwapbox } from '@/services/useSwapbox'
+import { useSwapbox } from '@/services'
 
 export const Swapbox = () => {
     const {
