@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const useOutputAmount = () => {
     const getOutputAmount = (variables: {
+        chainId: number
         from: string
         to: string
         amount: string

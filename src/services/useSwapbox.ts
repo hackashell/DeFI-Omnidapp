@@ -7,8 +7,8 @@ import { parseUnits, formatUnits } from 'ethers'
 import useDebounce from '@/utils/useDebounce'
 
 export const useSwapbox = () => {
-    const { data: tokenData } = useTokens()
     const { chain } = useNetwork()
+    const { data: tokenData } = useTokens()
     const { mutateAsync: getOutputAmount } = useOutputAmount()
 
     const [inputCurrency, setInputCurrency] = useState<TokenInfo>()
@@ -52,6 +52,7 @@ export const useSwapbox = () => {
             setIsfetching(true)
 
             getOutputAmount({
+                chainId: chain!.id,
                 from: inputCurrency.address,
                 to: outputCurrency.address,
                 amount: parseUnits(
