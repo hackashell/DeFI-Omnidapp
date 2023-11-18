@@ -3,17 +3,19 @@ import { useOutputAmount } from '@/hooks/useOutputAmount'
 import { TokenInfo } from '@uniswap/token-lists'
 import { useCallback, useEffect, useState } from 'react'
 import { useNetwork } from 'wagmi'
-import { parseUnits } from 'ethers'
+import { parseUnits, formatUnits } from 'ethers'
 
 export const useSwapbox = () => {
     const { data: tokenData } = useTokens()
     const { chain } = useNetwork()
-    const { mutateAsync } = useOutputAmount()
+    const { mutateAsync: getOutputAmount } = useOutputAmount()
 
     const [inputCurrency, setInputCurrency] = useState<TokenInfo>()
     const [outputCurrency, setOutputCurrency] = useState<TokenInfo>()
     const [inputAmount, setInputAmount] = useState<string>('')
     const [outputAmount, setOutputAmount] = useState<string>('')
+
+    const [isFetching, setIsfetching] = useState<boolean>(false)
 
     const handleInputCurrencySelect = (token: TokenInfo) =>
         setInputCurrency(token)
@@ -39,7 +41,9 @@ export const useSwapbox = () => {
 
     useEffect(() => {
         if (inputCurrency && outputCurrency && inputAmount) {
-            mutateAsync({
+            setIsfetching(true)
+
+            getOutputAmount({
                 from: inputCurrency.address,
                 to: outputCurrency.address,
                 amount: parseUnits(
@@ -48,12 +52,25 @@ export const useSwapbox = () => {
                 ).toString()
             })
                 .then(res => {
-                    console.log('RESULT', res)
-                    setOutputAmount(res.data.toTokenAmount)
+                    setOutputAmount(
+                        parseInt(
+                            formatUnits(
+                                res.data.response.toAmount,
+                                outputCurrency.decimals
+                            )
+                        ).toFixed(2)
+                    )
                 })
                 .catch(error => console.warn(error))
+                .finally(() => setIsfetching(false))
         }
-    }, [inputAmount, outputAmount, inputCurrency, outputCurrency])
+    }, [
+        inputAmount,
+        outputAmount,
+        inputCurrency,
+        outputCurrency,
+        getOutputAmount
+    ])
 
     return {
         chain,
@@ -65,6 +82,7 @@ export const useSwapbox = () => {
         inputAmount,
         outputAmount,
         setInputAmount,
-        setOutputAmount
+        setOutputAmount,
+        isFetching
     }
 }

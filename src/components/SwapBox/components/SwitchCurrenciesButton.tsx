@@ -10,17 +10,17 @@ import {
 } from '../constants'
 
 type SwitchCurrenciesButtonProps = {
-    loading?: boolean
+    isFetching: boolean
     onClick?: () => void
 }
 
 export function SwitchCurrenciesButton({
-    loading,
+    isFetching,
     onClick
 }: SwitchCurrenciesButtonProps) {
     return (
         <StyledButton onClick={onClick}>
-            {loading ? <RotatingArrows /> : <DownArrowSVG />}
+            {isFetching ? <RotatingArrows /> : <DownArrowSVG />}
         </StyledButton>
     )
 }

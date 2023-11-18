@@ -15,7 +15,8 @@ export const Swapbox = () => {
         inputAmount,
         outputAmount,
         setInputAmount,
-        setOutputAmount
+        setOutputAmount,
+        isFetching
     } = useSwapbox()
 
     return (
@@ -27,7 +28,7 @@ export const Swapbox = () => {
                 selectedCurrency={inputCurrency}
                 onCurrencySelect={handleInputCurrencySelect}
             />
-            <SwitchCurrenciesButton />
+            <SwitchCurrenciesButton isFetching={isFetching} />
             <CurrencyItem
                 tokens={tokens}
                 amount={outputAmount}
