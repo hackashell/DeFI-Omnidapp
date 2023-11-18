@@ -4,7 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 export const Header = () => {
     return (
         <Container>
-            <Logo src="/defi-omni.svg" alt="Logo" />
+            <Logo src='/defi-omni.svg' alt='Logo' />
             {/*<Logo>DeFi Omni Dapp</Logo>*/}
             <div>
                 <ConnectButton />
@@ -15,6 +15,7 @@ export const Header = () => {
 
 const Container = styled.header`
     width: 100%;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;

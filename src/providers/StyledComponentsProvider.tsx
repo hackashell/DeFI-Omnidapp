@@ -14,6 +14,7 @@ import { sky, skyDark } from '@radix-ui/colors'
 import { BackgroundImage, Header } from '@/components'
 
 import { APPLICATION_WIDTH } from '@/constants'
+import { Footer } from '@/components/Footer'
 
 const lightTheme: DefaultTheme = {
     ...thorinLightTheme,
@@ -119,6 +120,7 @@ export function StyledComponentsProvider({
             {/* <ThemeSwitch themeSwitchHandler={themeSwitchHandler} /> */}
             <Header />
             <Container>{children}</Container>
+            <Footer />
         </ThemeProvider>
     )
 }
@@ -126,7 +128,7 @@ export function StyledComponentsProvider({
 const Container = styled.div`
     width: ${APPLICATION_WIDTH};
     max-width: ${APPLICATION_WIDTH};
-    min-height: calc(100vh - 40px);
+    min-height: calc(100vh - 280px);
     display: flex;
     justify-content: center;
     align-items: center;
