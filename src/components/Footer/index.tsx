@@ -50,21 +50,24 @@ const Container = styled.footer`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(
+    position: relative;
+    /* background: linear-gradient(
         ${({ theme }) => theme.colors.no2subtleBackground},
         ${({ theme }) => theme.colors.no1appBackground}
-    );
+    ); */
+
+    background: rgba(16, 20, 28, 0.7);
 `
 
 const Card = styled.a`
     display: inline-block;
     padding: 1rem;
     background: linear-gradient(
-        ${({ theme }) => theme.colors.no3elementBackground},
-        ${({ theme }) => theme.colors.no2subtleBackground}
+        ${({ theme }) => theme.colors.no2subtleBackground},
+        ${({ theme }) => theme.colors.no3elementBackground}
     );
     border-radius: 0.5rem;
-    opacity: 0.7;
+    opacity: 0.9;
     cursor: pointer;
 `
 

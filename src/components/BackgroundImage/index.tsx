@@ -9,6 +9,5 @@ const Image = styled.img`
     position: absolute;
     bottom: 0;
     right: 0;
-    opacity: 0.1;
-    z-index: -1;
+    opacity: 0.3;
 `
