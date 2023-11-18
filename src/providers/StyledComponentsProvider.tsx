@@ -11,7 +11,7 @@ import {
 } from '@ensdomains/thorin'
 import { sky, skyDark } from '@radix-ui/colors'
 
-import { BackgroundImage, Header, ThemeSwitch } from '@/components'
+import { BackgroundImage, Header } from '@/components'
 
 import { APPLICATION_WIDTH } from '@/constants'
 
@@ -109,12 +109,7 @@ interface StyledComponentsProviderProps {
 export function StyledComponentsProvider({
     children
 }: StyledComponentsProviderProps) {
-    const [theme, setTheme] = useState(Theme.DARK)
-
-    const themeSwitchHandler = () =>
-        setTheme(currentTheme =>
-            currentTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
-        )
+    const [theme] = useState(Theme.DARK)
 
     return (
         <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>
