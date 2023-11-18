@@ -10,13 +10,16 @@ import {
 } from '../../constants'
 
 import { CurrencyAmount } from './CurrencyAmount'
+import { CurrencyType } from './CurrencyType'
 
 export const CurrencyItem = () => (
     <CurrencyContainer>
         <CurrencyAmountContainer>
             <CurrencyAmount />
         </CurrencyAmountContainer>
-        <CurrencyInfoContainer></CurrencyInfoContainer>
+        <CurrencyInfoContainer>
+            <CurrencyType />
+        </CurrencyInfoContainer>
     </CurrencyContainer>
 )
 
