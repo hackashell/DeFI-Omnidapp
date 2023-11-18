@@ -117,7 +117,6 @@ export function StyledComponentsProvider({
             <GlobalStyles />
             <ThorinGlobalStyles />
             <BackgroundImage />
-            {/* <ThemeSwitch themeSwitchHandler={themeSwitchHandler} /> */}
             <Header />
             <Container>{children}</Container>
             <Footer />

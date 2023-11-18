@@ -108,6 +108,6 @@ const Container = styled(motion.div)`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(16, 20, 28, 0.7);
     backdrop-filter: blur(7px);
 `
