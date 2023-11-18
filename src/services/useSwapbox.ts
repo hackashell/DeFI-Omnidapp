@@ -4,6 +4,7 @@ import { TokenInfo } from '@uniswap/token-lists'
 import { useCallback, useEffect, useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { parseUnits, formatUnits } from 'ethers'
+import useDebounce from '@/utils/useDebounce'
 
 export const useSwapbox = () => {
     const { data: tokenData } = useTokens()
@@ -44,15 +45,17 @@ export const useSwapbox = () => {
         setOutputCurrency(inputCurrency)
     }
 
+    const debouncedAmount = useDebounce(inputAmount, 1000)
+
     useEffect(() => {
-        if (inputCurrency && outputCurrency && inputAmount) {
+        if (inputCurrency && outputCurrency && debouncedAmount) {
             setIsfetching(true)
 
             getOutputAmount({
                 from: inputCurrency.address,
                 to: outputCurrency.address,
                 amount: parseUnits(
-                    inputAmount,
+                    debouncedAmount,
                     inputCurrency.decimals
                 ).toString()
             })
@@ -70,7 +73,7 @@ export const useSwapbox = () => {
                 .finally(() => setIsfetching(false))
         }
     }, [
-        inputAmount,
+        debouncedAmount,
         outputAmount,
         inputCurrency,
         outputCurrency,
