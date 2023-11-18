@@ -17,13 +17,15 @@ import { CurrencyType } from './CurrencyType'
 import { TokenInfo } from '@uniswap/token-lists'
 
 type CurrencyItemProps = {
+    tokens: TokenInfo[] | undefined
     selectedCurrency: TokenInfo | undefined
-    tokens: TokenInfo[]
+    onCurrencySelect: (token: TokenInfo) => void
 }
 
 export const CurrencyItem = ({
     tokens,
-    selectedCurrency
+    selectedCurrency,
+    onCurrencySelect
 }: CurrencyItemProps) => {
     const [tokenPickerOpened, setTokenPickerOpened] = useState(false)
 
@@ -43,6 +45,7 @@ export const CurrencyItem = ({
                     <TokenPicker
                         tokens={tokens}
                         closeTokenPicker={closeTokenPicker}
+                        onCurrencySelect={onCurrencySelect}
                     />
                 )}
             </AnimatePresence>

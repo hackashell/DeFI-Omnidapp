@@ -3,12 +3,12 @@ import styled from 'styled-components'
 
 type SearchItemProps = {
     token: TokenInfo
-    onClick?: () => void
+    onCurrencySelect: () => void
 }
 
-export function SearchItem({ token, onClick }: SearchItemProps) {
+export function SearchItem({ token, onCurrencySelect }: SearchItemProps) {
     return (
-        <Container onClick={onClick}>
+        <Container onClick={onCurrencySelect}>
             <Info>
                 <TokenInfo>{token?.symbol}</TokenInfo>
             </Info>

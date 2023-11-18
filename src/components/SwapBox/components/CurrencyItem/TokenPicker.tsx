@@ -6,16 +6,12 @@ import { motion } from 'framer-motion'
 import { Input } from './Input'
 import { SearchList } from './SearchList'
 import { CloseButton } from './CloseButton'
-import { useTokens } from '@/hooks'
 import { TokenInfo } from '@uniswap/token-lists'
 
 type TokenPickerProps = {
-    tokens: TokenInfo[]
-    onCurrencySelect?: () => void
+    tokens: TokenInfo[] | undefined
+    onCurrencySelect: (token: TokenInfo) => void
     closeTokenPicker: () => void
-    showNativeCurrency?: boolean
-    currencyOmitList?: string[]
-    selectedCurrency?: unknown | null
 }
 
 export const TokenPicker = ({
@@ -26,7 +22,10 @@ export const TokenPicker = ({
     const [tokenPickerContainer] = useState(() => document.createElement('div'))
     const [tokenPickerInputValue, setTokenPickerInputValue] = useState('')
 
-    const handleCurrencySelect = () => console.log('Currency Select!')
+    const handleCurrencySelect = (token: TokenInfo) => {
+        onCurrencySelect(token)
+        closeTokenPicker()
+    }
 
     useEffect(() => {
         tokenPickerContainer.classList.add('token-picker-root')
@@ -89,7 +88,7 @@ export const TokenPicker = ({
                                 .toLocaleLowerCase()
                                 .includes(tokenPickerInputValue.toLowerCase())
                     )}
-                    handleCurrencySelect={handleCurrencySelect}
+                    onCurrencySelect={handleCurrencySelect}
                 />
             )}
 

@@ -10,6 +10,11 @@ export const useSwapbox = () => {
     const [inputCurrency, setInputCurrency] = useState<TokenInfo>()
     const [outputCurrency, setOutputCurrency] = useState<TokenInfo>()
 
+    const handleInputCurrencySelect = (token: TokenInfo) =>
+        setInputCurrency(token)
+    const handleOutputCurrencySelect = (token: TokenInfo) =>
+        setOutputCurrency(token)
+
     return {
         chain,
         tokens:
@@ -17,8 +22,8 @@ export const useSwapbox = () => {
                 ? tokenData?.filter(token => token.chainId === chain?.id)
                 : [],
         inputCurrency,
-        setInputCurrency,
         outputCurrency,
-        setOutputCurrency
+        handleInputCurrencySelect,
+        handleOutputCurrencySelect
     }
 }

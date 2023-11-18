@@ -5,12 +5,12 @@ import { TokenInfo } from '@uniswap/token-lists'
 
 type SearchListProps = {
     filteredTokens: TokenInfo[]
-    handleCurrencySelect?: (currency: unknown) => void
+    onCurrencySelect: (token: TokenInfo) => void
 }
 
 export function SearchList({
     filteredTokens,
-    handleCurrencySelect
+    onCurrencySelect
 }: SearchListProps) {
     return (
         <Container>
@@ -18,6 +18,7 @@ export function SearchList({
                 <SearchItem
                     key={`${token.chainId}-${token.address}`}
                     token={token}
+                    onCurrencySelect={() => onCurrencySelect(token)}
                 />
             ))}
         </Container>

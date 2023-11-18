@@ -9,16 +9,24 @@ export const Swapbox = () => {
         chain,
         tokens,
         inputCurrency,
-        setInputCurrency,
         outputCurrency,
-        setOutputCurrency
+        handleInputCurrencySelect,
+        handleOutputCurrencySelect
     } = useSwapbox()
 
     return (
         <Container>
-            <CurrencyItem tokens={tokens} selectedCurrency={inputCurrency} />
+            <CurrencyItem
+                tokens={tokens}
+                selectedCurrency={inputCurrency}
+                onCurrencySelect={handleInputCurrencySelect}
+            />
             <SwitchCurrenciesButton />
-            <CurrencyItem tokens={tokens} selectedCurrency={outputCurrency} />
+            <CurrencyItem
+                tokens={tokens}
+                selectedCurrency={outputCurrency}
+                onCurrencySelect={handleOutputCurrencySelect}
+            />
             <SwapButton chain={chain} />
         </Container>
     )
