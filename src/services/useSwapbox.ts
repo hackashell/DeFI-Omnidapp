@@ -39,6 +39,11 @@ export const useSwapbox = () => {
         }
     }, [chain, getTokens])
 
+    const switchCurrencies = () => {
+        setInputCurrency(outputCurrency)
+        setOutputCurrency(inputCurrency)
+    }
+
     useEffect(() => {
         if (inputCurrency && outputCurrency && inputAmount) {
             setIsfetching(true)
@@ -52,14 +57,14 @@ export const useSwapbox = () => {
                 ).toString()
             })
                 .then(res => {
-                    setOutputAmount(
-                        parseInt(
-                            formatUnits(
-                                res.data.response.toAmount,
-                                outputCurrency.decimals
-                            )
-                        ).toFixed(2)
+                    const formattedNumber = formatUnits(
+                        res.data.response.toAmount,
+                        outputCurrency.decimals
                     )
+
+                    const floatedNumber = parseFloat(formattedNumber).toFixed(2)
+
+                    setOutputAmount(floatedNumber)
                 })
                 .catch(error => console.warn(error))
                 .finally(() => setIsfetching(false))
@@ -83,6 +88,7 @@ export const useSwapbox = () => {
         outputAmount,
         setInputAmount,
         setOutputAmount,
-        isFetching
+        isFetching,
+        switchCurrencies
     }
 }
