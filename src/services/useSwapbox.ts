@@ -1,11 +1,14 @@
 import { useTokens } from '@/hooks'
+import { useOutputAmount } from '@/hooks/useOutputAmount'
 import { TokenInfo } from '@uniswap/token-lists'
 import { useCallback, useEffect, useState } from 'react'
 import { useNetwork } from 'wagmi'
+import { parseUnits } from 'ethers'
 
 export const useSwapbox = () => {
     const { data: tokenData } = useTokens()
     const { chain } = useNetwork()
+    const { mutateAsync } = useOutputAmount()
 
     const [inputCurrency, setInputCurrency] = useState<TokenInfo>()
     const [outputCurrency, setOutputCurrency] = useState<TokenInfo>()
@@ -33,6 +36,24 @@ export const useSwapbox = () => {
             setOutputCurrency(getTokens()[1])
         }
     }, [chain, getTokens])
+
+    useEffect(() => {
+        if (inputCurrency && outputCurrency && inputAmount) {
+            mutateAsync({
+                from: inputCurrency.address,
+                to: outputCurrency.address,
+                amount: parseUnits(
+                    inputAmount,
+                    inputCurrency.decimals
+                ).toString()
+            })
+                .then(res => {
+                    console.log('RESULT', res)
+                    setOutputAmount(res.data.toTokenAmount)
+                })
+                .catch(error => console.warn(error))
+        }
+    }, [inputAmount, outputAmount, inputCurrency, outputCurrency])
 
     return {
         chain,
