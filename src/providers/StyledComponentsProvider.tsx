@@ -4,7 +4,11 @@ import styled, {
     createGlobalStyle,
     DefaultTheme
 } from 'styled-components'
-import { ThorinGlobalStyles, lightTheme as thorinLightTheme, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
+import {
+    ThorinGlobalStyles,
+    lightTheme as thorinLightTheme,
+    darkTheme as thorinDarkTheme
+} from '@ensdomains/thorin'
 import { sky, skyDark } from '@radix-ui/colors'
 
 import { BackgroundImage, Header, ThemeSwitch } from '@/components'
@@ -31,7 +35,7 @@ const lightTheme: DefaultTheme = {
         no11textContrastLow: sky.sky11,
         no12textContrastHigh: sky.sky12,
         ...thorinLightTheme.colors
-    },
+    }
 }
 
 const darkTheme: DefaultTheme = {
@@ -54,7 +58,7 @@ const darkTheme: DefaultTheme = {
         no11textContrastLow: skyDark.sky11,
         no12textContrastHigh: skyDark.sky12,
         ...thorinDarkTheme.colors
-    },
+    }
 }
 
 const GlobalStyles = createGlobalStyle`
@@ -117,7 +121,7 @@ export function StyledComponentsProvider({
             <GlobalStyles />
             <ThorinGlobalStyles />
             <BackgroundImage />
-            <ThemeSwitch themeSwitchHandler={themeSwitchHandler} />
+            {/* <ThemeSwitch themeSwitchHandler={themeSwitchHandler} /> */}
             <Header />
             <Container>{children}</Container>
         </ThemeProvider>

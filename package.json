@@ -12,8 +12,10 @@
     },
     "dependencies": {
         "@ensdomains/thorin": "^0.6.44",
+        "@pushprotocol/restapi": "^1.4.38",
         "@radix-ui/colors": "^3.0.0",
         "@rainbow-me/rainbowkit": "^1.2.0",
+        "ethers": "^6.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-transition-state": "^2.1.1",
