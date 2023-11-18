@@ -12,15 +12,16 @@ import {
     arbitrumSepolia,
     polygonMumbai,
     polygonZkEvmTestnet,
-    gnosisChiado,
-    scrollTestnet,
     lineaTestnet,
-    celoAlfajores
+    gnosisChiado,
+    mantleTestnet,
+    scrollTestnet,
+    celoAlfajores,
 } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient } = configureChains(
-    [sepolia, arbitrumSepolia, polygonMumbai, polygonZkEvmTestnet, gnosisChiado, scrollTestnet, lineaTestnet, celoAlfajores],
+    [sepolia, arbitrumSepolia, polygonMumbai, polygonZkEvmTestnet, gnosisChiado, scrollTestnet, mantleTestnet, lineaTestnet, celoAlfajores],
     [publicProvider()]
 )
 
