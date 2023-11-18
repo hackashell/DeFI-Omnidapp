@@ -18,12 +18,16 @@ import { TokenInfo } from '@uniswap/token-lists'
 
 type CurrencyItemProps = {
     tokens: TokenInfo[]
+    amount: string
+    setAmount: (amount: string) => void
     selectedCurrency: TokenInfo | undefined
     onCurrencySelect: (token: TokenInfo) => void
 }
 
 export const CurrencyItem = ({
     tokens,
+    amount,
+    setAmount,
     selectedCurrency,
     onCurrencySelect
 }: CurrencyItemProps) => {
@@ -35,7 +39,7 @@ export const CurrencyItem = ({
     return (
         <CurrencyContainer>
             <CurrencyAmountContainer>
-                <CurrencyAmount />
+                <CurrencyAmount amount={amount} setAmount={setAmount} />
             </CurrencyAmountContainer>
             <CurrencyInfoContainer onClick={openTokenPicker}>
                 <CurrencyType selectedCurrency={selectedCurrency} />

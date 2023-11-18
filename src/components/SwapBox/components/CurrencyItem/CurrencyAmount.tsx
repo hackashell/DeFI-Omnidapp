@@ -1,15 +1,18 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
-export function CurrencyAmount() {
-    const [inputValue, setInputValue] = useState('')
+type CurrencyAmountProps = {
+    amount: string
+    setAmount: (amount: string) => void
+}
 
+export function CurrencyAmount({ amount, setAmount }: CurrencyAmountProps) {
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
-        setInputValue(event.target.value)
+        setAmount(event.target.value)
 
     return (
         <StyledInput
-            value={inputValue}
+            value={amount}
             onChange={onChangeHandler}
             type='number'
             inputMode='decimal'

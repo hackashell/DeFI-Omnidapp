@@ -9,6 +9,8 @@ export const useSwapbox = () => {
 
     const [inputCurrency, setInputCurrency] = useState<TokenInfo>()
     const [outputCurrency, setOutputCurrency] = useState<TokenInfo>()
+    const [inputAmount, setInputAmount] = useState<string>('')
+    const [outputAmount, setOutputAmount] = useState<string>('')
 
     const handleInputCurrencySelect = (token: TokenInfo) =>
         setInputCurrency(token)
@@ -38,6 +40,10 @@ export const useSwapbox = () => {
         inputCurrency,
         outputCurrency,
         handleInputCurrencySelect,
-        handleOutputCurrencySelect
+        handleOutputCurrencySelect,
+        inputAmount,
+        outputAmount,
+        setInputAmount,
+        setOutputAmount
     }
 }

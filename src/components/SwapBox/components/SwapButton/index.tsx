@@ -39,6 +39,7 @@ const StyledButton = styled.button`
     }
 
     &:disabled {
+        color: ${({ theme }) => theme.colors.no7bordersInteractive};
         background: ${({ theme }) => theme.colors.no2subtleBackground};
         cursor: not-allowed;
     }
