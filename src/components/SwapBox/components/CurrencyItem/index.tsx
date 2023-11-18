@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { AnimatePresence } from 'framer-motion'
 
 import {
     ELEMENTS_BACKGROUND_PRIMARY,
@@ -8,20 +9,34 @@ import {
     ELEMENTS_SPACING,
     BorderStyle
 } from '../../constants'
+import { useState } from 'react'
 
+import { TokenPicker } from './TokenPicker'
 import { CurrencyAmount } from './CurrencyAmount'
 import { CurrencyType } from './CurrencyType'
 
-export const CurrencyItem = () => (
-    <CurrencyContainer>
-        <CurrencyAmountContainer>
-            <CurrencyAmount />
-        </CurrencyAmountContainer>
-        <CurrencyInfoContainer>
-            <CurrencyType />
-        </CurrencyInfoContainer>
-    </CurrencyContainer>
-)
+export const CurrencyItem = () => {
+    const [tokenPickerOpened, setTokenPickerOpened] = useState(true)
+
+    const openTokenPicker = () => setTokenPickerOpened(true)
+    const closeTokenPicker = () => setTokenPickerOpened(false)
+
+    return (
+        <CurrencyContainer>
+            <CurrencyAmountContainer>
+                <CurrencyAmount />
+            </CurrencyAmountContainer>
+            <CurrencyInfoContainer onClick={openTokenPicker}>
+                <CurrencyType />
+            </CurrencyInfoContainer>
+            <AnimatePresence>
+                {tokenPickerOpened && (
+                    <TokenPicker closeTokenPicker={closeTokenPicker} />
+                )}
+            </AnimatePresence>
+        </CurrencyContainer>
+    )
+}
 
 const CurrencyContainer = styled.div<{ lowerItem?: boolean }>`
     width: 100%;
