@@ -12,7 +12,9 @@ export const Header = () => {
     )
 }
 
-const Container = styled.header``
+const Container = styled.header`
+    height: 40px;
+`
 
 const Content = styled.div`
     width: 100%;

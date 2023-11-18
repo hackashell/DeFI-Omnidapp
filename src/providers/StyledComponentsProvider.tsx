@@ -131,7 +131,7 @@ export function StyledComponentsProvider({
 const Container = styled.div`
     width: ${APPLICATION_WIDTH};
     max-width: ${APPLICATION_WIDTH};
-    min-height: 100vh;
+    min-height: calc(100vh - 40px);
     display: flex;
     justify-content: center;
     align-items: center;
