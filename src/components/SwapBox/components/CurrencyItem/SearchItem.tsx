@@ -1,5 +1,6 @@
 import { TokenInfo } from '@uniswap/token-lists'
 import styled from 'styled-components'
+import { CurrencyLogo } from './CurrencyLogo'
 
 type SearchItemProps = {
     token: TokenInfo
@@ -10,7 +11,10 @@ export function SearchItem({ token, onCurrencySelect }: SearchItemProps) {
     return (
         <Container onClick={onCurrencySelect}>
             <Info>
-                <TokenInfo>{token?.symbol}</TokenInfo>
+                <TokenInfo>
+                    {token?.logoURI && <CurrencyLogo logoURI={token.logoURI} />}
+                    {token?.symbol}
+                </TokenInfo>
             </Info>
             <TokenName>{token?.name}</TokenName>
         </Container>
