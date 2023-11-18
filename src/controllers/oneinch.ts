@@ -2,11 +2,7 @@ import { RequestHandler } from 'express'
 import axios from 'axios'
 
 export const getAmountTo: RequestHandler = async (req, res, next) => {
-    console.log(req.body)
-
     const { from, to, amount } = req.body
-
-    console.log(from, to, amount)
 
     try {
         const { data } = await axios.get(
