@@ -10,4 +10,5 @@ const Image = styled.img`
     bottom: 0;
     right: 0;
     opacity: 0.1;
+    z-index: -1;
 `
