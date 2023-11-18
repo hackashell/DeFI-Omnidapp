@@ -8,7 +8,8 @@ import {IPoolManager, BalanceDelta, PoolKey} from 'v4-core/src/interfaces/IPoolM
 import {IHooks} from 'v4-core/src/interfaces/IHooks.sol';
 import {ILockCallback} from 'v4-core/src/interfaces/callback/ILockCallback.sol';
 import {Currency, CurrencyLibrary} from "v4-core/src/types/Currency.sol";
-
+import { PoolId } from "v4-core/src/types/PoolId.sol";
+import { IERC20Metadata } from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 contract UniswapV4Adapter is OceanAdapter, ILockCallback {
     /////////////////////////////////////////////////////////////////////
@@ -20,7 +21,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
     enum ComputeType {
       Swap
     }
-
 
     /////////////////////////////////////////////////////////////////////
     //                             Events                              //
@@ -50,15 +50,16 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         bool computeOutput
     );
 
-    using SafeERC20 for IERC20;
+    using SafeERC20 for IERC20Metadata;
+    using CurrencyLibrary for Currency;
 
-    bytes32 public immutable poolId;
+    PoolId public immutable poolId;
 
-    int24 public immutable fee;
+    uint24 public immutable fee;
 
     IHooks public immutable hook;
 
-    uint24 public immutable tickSpacing;
+    int24 public immutable tickSpacing;
 
     /// @notice x token Ocean ID.
     uint256 public immutable xToken;
@@ -66,17 +67,11 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
     /// @notice y token Ocean ID.
     uint256 public immutable yToken;
 
-    /// @notice lp token Ocean ID.
-    uint256 public immutable lpTokenId;
-
     /// @notice map token Ocean IDs to corresponding Curve pool indices
     mapping(uint256 => int128) indexOf;
 
     /// @notice The underlying token decimals wrt to the Ocean ID
     mapping(uint256 => uint8) decimals;
-
-    /// @notice The underlying token address corresponding to the Ocean ID.
-    mapping(uint256 => Currency) public underlying;
 
     //*********************************************************************//
     // ---------------------------- constructor -------------------------- //
@@ -86,22 +81,32 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
      * @notice only initializing the immutables, mappings & approves tokens
      */
     constructor(address ocean_, address primitive_, PoolKey memory key_, uint160 sqrtPriceX96_, bytes memory hookData_) OceanAdapter(ocean_, primitive_) {
-        Currency xTokenAddress = key_.currency0;
+        address xTokenAddress = convertType(key_.currency0);
         xToken = _calculateOceanId(xTokenAddress, 0);
         underlying[xToken] = xTokenAddress;
-        decimals[xToken] = IERC20(xTokenAddress).decimals();
+        decimals[xToken] = IERC20Metadata(xTokenAddress).decimals();
         _approveToken(xTokenAddress);
 
-        Currency yTokenAddress = key_.currency1;
+        address yTokenAddress = convertType(key_.currency1);
         yToken = _calculateOceanId(yTokenAddress, 0);
         indexOf[yToken] = int128(1);
         underlying[yToken] = yTokenAddress;
-        decimals[yToken] = IERC20(yTokenAddress).decimals();
+        decimals[yToken] = IERC20Metadata(yTokenAddress).decimals();
         _approveToken(yTokenAddress);
 
-        poolId = bytes32.wrap(keccak256(abi.encode(key_)));
+        fee = key_.fee;
+        hook = key_.hooks;
+        tickSpacing = key_.tickSpacing;
 
+        poolId = PoolId.wrap(keccak256(abi.encode(key_)));
+     
         IPoolManager(primitive_).initialize(key_, sqrtPriceX96_, hookData_);
+    }
+
+    function convertType(Currency currency_) internal view returns(address underlyingToken) {
+      assembly {
+          underlyingToken := currency_
+      }
     }
 
     /**
@@ -168,8 +173,8 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         (uint160 sqrtPriceX96, , , ) = IPoolManager(primitive).getSlot0(poolId);
 
         PoolKey memory poolKey = PoolKey({
-            currency0: underlying[xToken],
-            currency1: underlying[yToken],
+            currency0: Currency.wrap(underlying[xToken]),
+            currency1: Currency.wrap(underlying[yToken]),
             fee: fee,
             tickSpacing: tickSpacing,
             hooks: hook
@@ -178,7 +183,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         IPoolManager.SwapParams memory params = IPoolManager.SwapParams({
             zeroForOne: true,
             amountSpecified: int(inputAmount),
-            tickSpacing: tickSpacing,
             sqrtPriceLimitX96: sqrtPriceX96
         });
 
@@ -187,7 +191,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         int128 indexOfOutputAmount = indexOf[outputToken];
 
         if (action == ComputeType.Swap) {
-            IPoolManager(primitive).lock(abi.encode(poolKey, params, block.timeswap + 100));
+            IPoolManager(primitive).lock(abi.encode(poolKey, params, block.timestamp + 100));
         }
 
         // outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, rawOutputAmount);
@@ -199,7 +203,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         // }
     }
 
-    function lockAcquired(uint256, bytes calldata data) external returns (bytes memory) {
+    function lockAcquired(bytes calldata data) external returns (bytes memory) {
         if (msg.sender != primitive) {
             revert();
         }
@@ -214,7 +218,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
             revert();
         }
 
-        BalanceDelta delta = IPoolManager(primitive).swap(poolKey, swapParams);
+        BalanceDelta delta = IPoolManager(primitive).swap(poolKey, swapParams, new bytes(0));
 
         _settleCurrencyBalance(poolKey.currency0, delta.amount0());
         _settleCurrencyBalance(poolKey.currency1, delta.amount1());
@@ -236,7 +240,7 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
             return;
         }
 
-        IERC20(Currency.unwrap(currency)).safeTransferFrom(
+        IERC20Metadata(Currency.unwrap(currency)).safeTransferFrom(
             msg.sender,
             primitive,
             uint128(deltaAmount)
@@ -248,8 +252,8 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
      * @dev Approves token to be spent by the Ocean and the Curve pool
      */
     function _approveToken(address tokenAddress) internal {
-        IERC20(tokenAddress).approve(ocean, type(uint256).max);
-        IERC20(tokenAddress).approve(primitive, type(uint256).max);
+        IERC20Metadata(tokenAddress).approve(ocean, type(uint256).max);
+        IERC20Metadata(tokenAddress).approve(primitive, type(uint256).max);
     }
 
     /**
