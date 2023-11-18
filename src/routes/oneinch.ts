@@ -4,7 +4,7 @@ import { getTokenList, getAmountTo } from '../controllers/oneinch'
 
 const router = Router()
 
-router.post('/get-tokens', getAmountTo)
+router.get('/get-tokens', getTokenList)
 router.post('/find-best-quote', getAmountTo)
 
 export default router
