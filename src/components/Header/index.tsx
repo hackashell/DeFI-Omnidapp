@@ -6,7 +6,10 @@ export const Header = () => {
     return (
         <Container>
             <Content>
-                <ConnectButton />
+                <div>DeFi Omni Dapp</div>
+                <div>
+                    <ConnectButton />
+                </div>
             </Content>
         </Container>
     )
@@ -18,6 +21,9 @@ const Container = styled.header`
 
 const Content = styled.div`
     width: 100%;
-    max-width: ${APPLICATION_WIDTH};
+    padding: 20px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `
