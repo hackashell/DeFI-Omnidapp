@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 
 import { Input } from './Input'
+import { CloseButton } from './CloseButton'
 
 type TokenPickerProps = {
     onCurrencySelect?: () => void
@@ -75,8 +76,8 @@ export const TokenPicker = ({
                 }
                 handleCurrencySelect={handleCurrencySelect}
             />
-
-            <CloseButton onClick={closeTokenPicker} /> */}
+ */}
+            <CloseButton onClick={closeTokenPicker} />
         </Container>,
         tokenPickerContainer
     )
