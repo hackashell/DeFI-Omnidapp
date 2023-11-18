@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
+
+import { Input } from './Input'
 
 type TokenPickerProps = {
     onCurrencySelect?: () => void
@@ -16,6 +18,7 @@ export const TokenPicker = ({
     closeTokenPicker
 }: TokenPickerProps) => {
     const [tokenPickerContainer] = useState(() => document.createElement('div'))
+    const [tokenPickerInputValue, setTokenPickerInputValue] = useState('')
 
     useEffect(() => {
         tokenPickerContainer.classList.add('token-picker-root')
@@ -26,9 +29,23 @@ export const TokenPicker = ({
         }
     }, [tokenPickerContainer])
 
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) =>
+        setTokenPickerInputValue(event.target.value)
+
+    const clearInput = () => setTokenPickerInputValue('')
+
+    const onClose = (
+        event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+    ) => {
+        if (event.target === event.currentTarget) {
+            event.stopPropagation()
+            closeTokenPicker()
+        }
+    }
+
     return createPortal(
         <Container
-            onClick={closeTokenPicker}
+            onClick={onClose}
             initial={{ opacity: 0, scale: 2 }}
             animate={{
                 opacity: 1,
@@ -45,14 +62,13 @@ export const TokenPicker = ({
                 }
             }}
         >
-            123
-            {/* <Input
+            <Input
                 placeholder='Search token by name or paste address'
                 value={tokenPickerInputValue}
-                onChange={handleInput}
+                onChange={handleOnChange}
                 clearInput={clearInput}
             />
-
+            {/* 
             <SearchList
                 filteredSortedTokensWithNativeCurrency={
                     filteredSortedTokensWithNativeCurrency

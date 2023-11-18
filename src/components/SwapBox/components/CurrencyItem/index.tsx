@@ -16,7 +16,7 @@ import { CurrencyAmount } from './CurrencyAmount'
 import { CurrencyType } from './CurrencyType'
 
 export const CurrencyItem = () => {
-    const [tokenPickerOpened, setTokenPickerOpened] = useState(true)
+    const [tokenPickerOpened, setTokenPickerOpened] = useState(false)
 
     const openTokenPicker = () => setTokenPickerOpened(true)
     const closeTokenPicker = () => setTokenPickerOpened(false)
