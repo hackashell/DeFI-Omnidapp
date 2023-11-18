@@ -8,6 +8,8 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import {
+    mainnet,
+    gnosis,
     sepolia,
     arbitrumSepolia,
     polygonMumbai,
@@ -16,12 +18,24 @@ import {
     gnosisChiado,
     mantleTestnet,
     scrollTestnet,
-    celoAlfajores,
+    celoAlfajores
 } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient } = configureChains(
-    [sepolia, arbitrumSepolia, polygonMumbai, polygonZkEvmTestnet, gnosisChiado, scrollTestnet, mantleTestnet, lineaTestnet, celoAlfajores],
+    [
+        mainnet,
+        gnosis,
+        sepolia,
+        arbitrumSepolia,
+        polygonMumbai,
+        polygonZkEvmTestnet,
+        gnosisChiado,
+        scrollTestnet,
+        mantleTestnet,
+        lineaTestnet,
+        celoAlfajores
+    ],
     [publicProvider()]
 )
 
