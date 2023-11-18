@@ -1,29 +1,34 @@
-import { APPLICATION_WIDTH } from '@/constants'
 import styled from 'styled-components'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export const Header = () => {
     return (
         <Container>
-            <Content>
-                <div>DeFi Omni Dapp</div>
-                <div>
-                    <ConnectButton />
-                </div>
-            </Content>
+            <Logo>DeFi Omni Dapp</Logo>
+            <div>
+                <ConnectButton />
+            </div>
         </Container>
     )
 }
 
 const Container = styled.header`
-    height: 40px;
-`
-
-const Content = styled.div`
     width: 100%;
-    padding: 20px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
+`
+
+const Logo = styled.p`
+    line-height: 1;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: -webkit-linear-gradient(300deg, #93f5ec 20%, #a77bf3 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 `
