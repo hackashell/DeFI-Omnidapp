@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card } from '@ensdomains/thorin'
+import { Card, Avatar } from '@ensdomains/thorin'
 
 type Member = {
     firstName: string
@@ -38,7 +38,9 @@ export const Footer = () => (
                 key={`${member.firstName}-${member.lastName}`}
             >
                 <StyledCard>
-                    <ProfilePhoto src={member.photoUrl} />
+                    <ProfilePhoto>
+                        <Avatar src={member.photoUrl} />
+                    </ProfilePhoto>
                     <Paragraph>{member.firstName}</Paragraph>
                     <Paragraph>{member.lastName}</Paragraph>
                 </StyledCard>
@@ -76,7 +78,7 @@ const Paragraph = styled.p`
     text-align: center;
 `
 
-const ProfilePhoto = styled.img`
+const ProfilePhoto = styled.div`
     width: 64px;
     height: 64px;
     border: 3px solid ${({ theme }) => theme.colors.no7bordersInteractive};
