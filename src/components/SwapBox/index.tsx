@@ -5,16 +5,14 @@ import { SWAPBOX_WIDTH } from './constants'
 import { useSwapbox } from '@/services/useSwapbox'
 
 export const Swapbox = () => {
-    const { tokens } = useSwapbox()
-
-    console.log('TOKENS', tokens)
+    const { chain, tokens } = useSwapbox()
 
     return (
         <Container>
             <CurrencyItem tokens={tokens} />
             <SwitchCurrenciesButton />
-            <CurrencyItem />
-            <SwapButton />
+            <CurrencyItem tokens={tokens} />
+            <SwapButton chain={chain} />
         </Container>
     )
 }
