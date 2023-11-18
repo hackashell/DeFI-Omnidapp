@@ -78,7 +78,8 @@ export const useSwapbox = () => {
         outputAmount,
         inputCurrency,
         outputCurrency,
-        getOutputAmount
+        getOutputAmount,
+        chain
     ])
 
     return {
