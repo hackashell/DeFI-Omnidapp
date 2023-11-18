@@ -1,9 +1,12 @@
 import styled from 'styled-components'
+
 import { CurrencySymbol } from './CurrencySymbol'
+import DownArrowLarge from '../../assets/down-arrow-large.svg?react'
 
 export const CurrencyType = () => (
     <Container>
         <CurrencySymbol currency='USD' />
+        <DownArrowLarge />
     </Container>
 )
 
