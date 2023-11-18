@@ -11,7 +11,7 @@ import {
 
 type SwitchCurrenciesButtonProps = {
     isFetching: boolean
-    onClick?: () => void
+    onClick: () => void
 }
 
 export function SwitchCurrenciesButton({
