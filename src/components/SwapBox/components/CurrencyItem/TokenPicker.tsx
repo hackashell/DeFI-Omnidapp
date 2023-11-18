@@ -9,7 +9,7 @@ import { CloseButton } from './CloseButton'
 import { TokenInfo } from '@uniswap/token-lists'
 
 type TokenPickerProps = {
-    tokens: TokenInfo[] | undefined
+    tokens: TokenInfo[]
     onCurrencySelect: (token: TokenInfo) => void
     closeTokenPicker: () => void
 }
@@ -77,7 +77,7 @@ export const TokenPicker = ({
             />
             {tokens?.length !== 0 && (
                 <SearchList
-                    filteredTokens={tokens?.filter(
+                    filteredTokens={tokens.filter(
                         (token: TokenInfo) =>
                             token.name
                                 .toLowerCase()

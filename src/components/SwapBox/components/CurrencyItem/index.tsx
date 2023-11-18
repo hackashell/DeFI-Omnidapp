@@ -17,7 +17,7 @@ import { CurrencyType } from './CurrencyType'
 import { TokenInfo } from '@uniswap/token-lists'
 
 type CurrencyItemProps = {
-    tokens: TokenInfo[] | undefined
+    tokens: TokenInfo[]
     selectedCurrency: TokenInfo | undefined
     onCurrencySelect: (token: TokenInfo) => void
 }
