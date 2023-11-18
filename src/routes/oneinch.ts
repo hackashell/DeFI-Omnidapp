@@ -4,6 +4,6 @@ import { getAmountTo } from '../controllers/oneinch'
 
 const router = Router()
 
-router.get('/find-best-quote', getAmountTo)
+router.post('/find-best-quote', getAmountTo)
 
 export default router
