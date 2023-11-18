@@ -1,21 +1,25 @@
 import styled from 'styled-components'
 
 import { SearchItem } from './SearchItem'
+import { TokenInfo } from '@uniswap/token-lists'
 
 type SearchListProps = {
-    filteredSortedTokensWithNativeCurrency?: unknown[]
+    filteredTokens: TokenInfo[]
     handleCurrencySelect?: (currency: unknown) => void
 }
 
 export function SearchList({
-    filteredSortedTokensWithNativeCurrency,
+    filteredTokens,
     handleCurrencySelect
 }: SearchListProps) {
     return (
         <Container>
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {filteredTokens.map(token => (
+                <SearchItem
+                    key={`${token.chainId}-${token.address}`}
+                    token={token}
+                />
+            ))}
         </Container>
     )
 }

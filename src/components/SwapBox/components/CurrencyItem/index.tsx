@@ -14,8 +14,13 @@ import { useState } from 'react'
 import { TokenPicker } from './TokenPicker'
 import { CurrencyAmount } from './CurrencyAmount'
 import { CurrencyType } from './CurrencyType'
+import { TokenInfo } from '@uniswap/token-lists'
 
-export const CurrencyItem = () => {
+type CurrencyItemProps = {
+    tokens: TokenInfo[]
+}
+
+export const CurrencyItem = ({ tokens }: CurrencyItemProps) => {
     const [tokenPickerOpened, setTokenPickerOpened] = useState(false)
 
     const openTokenPicker = () => setTokenPickerOpened(true)
@@ -31,7 +36,10 @@ export const CurrencyItem = () => {
             </CurrencyInfoContainer>
             <AnimatePresence>
                 {tokenPickerOpened && (
-                    <TokenPicker closeTokenPicker={closeTokenPicker} />
+                    <TokenPicker
+                        tokens={tokens}
+                        closeTokenPicker={closeTokenPicker}
+                    />
                 )}
             </AnimatePresence>
         </CurrencyContainer>

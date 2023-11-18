@@ -11,7 +11,7 @@ export const Swapbox = () => {
 
     return (
         <Container>
-            <CurrencyItem />
+            <CurrencyItem tokens={tokens} />
             <SwitchCurrenciesButton />
             <CurrencyItem />
             <SwapButton />

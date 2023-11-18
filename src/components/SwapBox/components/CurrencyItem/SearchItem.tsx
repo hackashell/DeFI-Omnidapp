@@ -1,18 +1,18 @@
+import { TokenInfo } from '@uniswap/token-lists'
 import styled from 'styled-components'
 
 type SearchItemProps = {
-    currency?: unknown
-    balance?: unknown
+    token: TokenInfo
     onClick?: () => void
 }
 
-export function SearchItem({ currency, balance, onClick }: SearchItemProps) {
+export function SearchItem({ token, onClick }: SearchItemProps) {
     return (
         <Container onClick={onClick}>
             <Info>
-                <TokenInfo>USD</TokenInfo>
+                <TokenInfo>{token?.symbol}</TokenInfo>
             </Info>
-            <TokenName>USD Token</TokenName>
+            <TokenName>{token?.name}</TokenName>
         </Container>
     )
 }

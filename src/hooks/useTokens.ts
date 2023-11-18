@@ -19,7 +19,7 @@ export const useTokens = () => {
         return tokens
     }
 
-    return useQuery({
+    return useQuery<TokenInfo[]>({
         queryKey: ['todos'],
         queryFn: getTokens,
         refetchOnWindowFocus: false

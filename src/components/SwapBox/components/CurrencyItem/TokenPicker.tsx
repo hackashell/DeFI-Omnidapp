@@ -6,8 +6,11 @@ import { motion } from 'framer-motion'
 import { Input } from './Input'
 import { SearchList } from './SearchList'
 import { CloseButton } from './CloseButton'
+import { useTokens } from '@/hooks'
+import { TokenInfo } from '@uniswap/token-lists'
 
 type TokenPickerProps = {
+    tokens: TokenInfo[]
     onCurrencySelect?: () => void
     closeTokenPicker: () => void
     showNativeCurrency?: boolean
@@ -16,6 +19,7 @@ type TokenPickerProps = {
 }
 
 export const TokenPicker = ({
+    tokens,
     onCurrencySelect,
     closeTokenPicker
 }: TokenPickerProps) => {
@@ -72,7 +76,22 @@ export const TokenPicker = ({
                 onChange={handleOnChange}
                 clearInput={clearInput}
             />
-            <SearchList handleCurrencySelect={handleCurrencySelect} />
+            {tokens?.length !== 0 && (
+                <SearchList
+                    filteredTokens={tokens?.filter(
+                        (token: TokenInfo) =>
+                            token.name
+                                .toLowerCase()
+                                .includes(
+                                    tokenPickerInputValue.toLowerCase()
+                                ) ||
+                            token.symbol
+                                .toLocaleLowerCase()
+                                .includes(tokenPickerInputValue.toLowerCase())
+                    )}
+                    handleCurrencySelect={handleCurrencySelect}
+                />
+            )}
 
             <CloseButton onClick={closeTokenPicker} />
         </Container>,
