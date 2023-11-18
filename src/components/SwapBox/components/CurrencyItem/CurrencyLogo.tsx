@@ -1,10 +1,22 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 
-export const CurrencyLogo = ({ logoURI }: { logoURI: string }) => (
-    <Container>
-        <StyledLogo src={logoURI} />
-    </Container>
-)
+export const CurrencyLogo = ({ logoURI }: { logoURI: string }) => {
+    const [imageError, setImageError] = useState(false)
+
+    return (
+        <Container>
+            <StyledLogo
+                src={
+                    imageError
+                        ? 'https://avatars.githubusercontent.com/u/24759563?s=400&u=ad63a8d249c09ce43a3f9e6f13807424597a81ce&v=4'
+                        : logoURI
+                }
+                onError={() => setImageError(true)}
+            />
+        </Container>
+    )
+}
 
 const Container = styled.div`
     width: 20px;
