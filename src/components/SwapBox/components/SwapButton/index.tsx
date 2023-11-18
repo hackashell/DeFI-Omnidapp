@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 import { ELEMENTS_BACKGROUND_PRIMARY } from '../../constants'
+import {Button} from "@ensdomains/thorin";
 
-export const SwapButton = () => <Button>APPROVE</Button>
+export const SwapButton = () => <Button2>APPROVE</Button2>
 
-const Button = styled.button`
+const Button2 = styled(Button)`
     width: 100%;
     height: 70px;
     display: flex;
@@ -13,11 +14,6 @@ const Button = styled.button`
     gap: 10px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(
-        90deg,
-        rgba(46, 23, 242, 1) 0%,
-        rgba(80, 0, 115, 1) 100%
-    );
     box-shadow: 0px 0px 42px rgba(129, 62, 127, 0.32);
     cursor: pointer;
 
