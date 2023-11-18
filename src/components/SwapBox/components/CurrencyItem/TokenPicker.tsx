@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 
 import { Input } from './Input'
+import { SearchList } from './SearchList'
 import { CloseButton } from './CloseButton'
 
 type TokenPickerProps = {
@@ -20,6 +21,8 @@ export const TokenPicker = ({
 }: TokenPickerProps) => {
     const [tokenPickerContainer] = useState(() => document.createElement('div'))
     const [tokenPickerInputValue, setTokenPickerInputValue] = useState('')
+
+    const handleCurrencySelect = () => console.log('Currency Select!')
 
     useEffect(() => {
         tokenPickerContainer.classList.add('token-picker-root')
@@ -69,14 +72,8 @@ export const TokenPicker = ({
                 onChange={handleOnChange}
                 clearInput={clearInput}
             />
-            {/* 
-            <SearchList
-                filteredSortedTokensWithNativeCurrency={
-                    filteredSortedTokensWithNativeCurrency
-                }
-                handleCurrencySelect={handleCurrencySelect}
-            />
- */}
+            <SearchList handleCurrencySelect={handleCurrencySelect} />
+
             <CloseButton onClick={closeTokenPicker} />
         </Container>,
         tokenPickerContainer
