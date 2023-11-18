@@ -1,6 +1,6 @@
 import { useTokens } from '@/hooks'
 import { TokenInfo } from '@uniswap/token-lists'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNetwork } from 'wagmi'
 
 export const useSwapbox = () => {
@@ -15,7 +15,7 @@ export const useSwapbox = () => {
     const handleOutputCurrencySelect = (token: TokenInfo) =>
         setOutputCurrency(token)
 
-    const getTokens = () => {
+    const getTokens = useCallback(() => {
         if (tokenData && tokenData?.length !== 0) {
             return (tokenData as TokenInfo[]).filter(
                 token => token.chainId === chain?.id
@@ -23,7 +23,14 @@ export const useSwapbox = () => {
         }
 
         return []
-    }
+    }, [tokenData, chain])
+
+    useEffect(() => {
+        if (chain) {
+            setInputCurrency(getTokens()[0])
+            setOutputCurrency(getTokens()[1])
+        }
+    }, [chain, getTokens])
 
     return {
         chain,
