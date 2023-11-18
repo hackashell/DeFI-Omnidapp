@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Button } from '@ensdomains/thorin'
 
 import { Chain } from 'viem'
 
@@ -29,7 +30,7 @@ export const SwapButton = ({
     )
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled(Button)`
     width: 100%;
     height: 70px;
     display: flex;

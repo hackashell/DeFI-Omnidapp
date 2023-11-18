@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import styled from 'styled-components'
+import { Input as ENSInput } from '@ensdomains/thorin'
 
 import CloseSmallSVG from '../../assets/close-small.svg?react'
 
@@ -41,7 +42,7 @@ const InputContainer = styled.div`
     margin: 120px auto 0;
 `
 
-const StyledInput = styled.input`
+const StyledInput = styled(ENSInput)`
     width: 100%;
     height: 48px;
     box-sizing: border-box;

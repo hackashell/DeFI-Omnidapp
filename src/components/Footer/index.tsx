@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Card } from '@ensdomains/thorin'
 
 type Member = {
     firstName: string
@@ -31,15 +32,17 @@ const members: Member[] = [
 export const Footer = () => (
     <Container>
         {members.map(member => (
-            <Card
-                key={`${member.firstName}-${member.lastName}`}
+            <a
                 href={member.githubUrl}
                 target='_blank'
+                key={`${member.firstName}-${member.lastName}`}
             >
-                <ProfilePhoto src={member.photoUrl} />
-                <Paragraph>{member.firstName}</Paragraph>
-                <Paragraph>{member.lastName}</Paragraph>
-            </Card>
+                <StyledCard>
+                    <ProfilePhoto src={member.photoUrl} />
+                    <Paragraph>{member.firstName}</Paragraph>
+                    <Paragraph>{member.lastName}</Paragraph>
+                </StyledCard>
+            </a>
         ))}
     </Container>
 )
@@ -51,21 +54,17 @@ const Container = styled.footer`
     align-items: center;
     gap: 1rem;
     position: relative;
-    /* background: linear-gradient(
-        ${({ theme }) => theme.colors.no2subtleBackground},
-        ${({ theme }) => theme.colors.no1appBackground}
-    ); */
-
     background: rgba(16, 20, 28, 0.7);
 `
 
-const Card = styled.a`
+const StyledCard = styled(Card)`
     display: inline-block;
     padding: 1rem;
     background: linear-gradient(
         ${({ theme }) => theme.colors.no2subtleBackground},
         ${({ theme }) => theme.colors.no3elementBackground}
     );
+    border: none;
     border-radius: 0.5rem;
     opacity: 0.9;
     cursor: pointer;
