@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 import { Chain } from 'viem'
-import { ELEMENTS_BACKGROUND_PRIMARY } from '../../constants'
 
 type SwapButtonProps = {
     chain: Chain | undefined

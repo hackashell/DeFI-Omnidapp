@@ -2,10 +2,15 @@ import styled from 'styled-components'
 
 import { CurrencySymbol } from './CurrencySymbol'
 import DownArrowLarge from '../../assets/down-arrow-large.svg?react'
+import { TokenInfo } from '@uniswap/token-lists'
 
-export const CurrencyType = () => (
+type CurrencyTypeProps = {
+    selectedCurrency: TokenInfo | undefined
+}
+
+export const CurrencyType = ({ selectedCurrency }: CurrencyTypeProps) => (
     <Container>
-        <CurrencySymbol currency='USD' />
+        <CurrencySymbol currency={selectedCurrency?.symbol} />
         <DownArrowLarge />
     </Container>
 )

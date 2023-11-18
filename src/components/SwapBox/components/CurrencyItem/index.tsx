@@ -17,10 +17,14 @@ import { CurrencyType } from './CurrencyType'
 import { TokenInfo } from '@uniswap/token-lists'
 
 type CurrencyItemProps = {
+    selectedCurrency: TokenInfo | undefined
     tokens: TokenInfo[]
 }
 
-export const CurrencyItem = ({ tokens }: CurrencyItemProps) => {
+export const CurrencyItem = ({
+    tokens,
+    selectedCurrency
+}: CurrencyItemProps) => {
     const [tokenPickerOpened, setTokenPickerOpened] = useState(false)
 
     const openTokenPicker = () => setTokenPickerOpened(true)
@@ -32,7 +36,7 @@ export const CurrencyItem = ({ tokens }: CurrencyItemProps) => {
                 <CurrencyAmount />
             </CurrencyAmountContainer>
             <CurrencyInfoContainer onClick={openTokenPicker}>
-                <CurrencyType />
+                <CurrencyType selectedCurrency={selectedCurrency} />
             </CurrencyInfoContainer>
             <AnimatePresence>
                 {tokenPickerOpened && (
