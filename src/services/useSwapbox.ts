@@ -16,7 +16,7 @@ export const useSwapbox = () => {
         setOutputCurrency(token)
 
     const getTokens = () => {
-        if (tokenData?.length !== 0) {
+        if (tokenData && tokenData?.length !== 0) {
             return (tokenData as TokenInfo[]).filter(
                 token => token.chainId === chain?.id
             )
