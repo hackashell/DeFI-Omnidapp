@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
+
 type CurrencyAmountProps = {
     amount: string
     setAmount: (amount: string) => void

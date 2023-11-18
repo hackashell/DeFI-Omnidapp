@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { AnimatePresence } from 'framer-motion'
+import { getContract } from 'viem'
 
 import {
     ELEMENTS_BACKGROUND_PRIMARY,
@@ -14,6 +15,8 @@ import { useState } from 'react'
 import { TokenPicker } from './TokenPicker'
 import { CurrencyAmount } from './CurrencyAmount'
 import { CurrencyType } from './CurrencyType'
+import {OceanABI} from "@/constants/ABI/OceanABI";
+import {useWalletClient} from "wagmi";
 import { TokenInfo } from '@uniswap/token-lists'
 
 type CurrencyItemProps = {
@@ -31,10 +34,23 @@ export const CurrencyItem = ({
     selectedCurrency,
     onCurrencySelect
 }: CurrencyItemProps) => {
+    const { data: walletClient } = useWalletClient()
+
     const [tokenPickerOpened, setTokenPickerOpened] = useState(false)
+
+    const contract = getContract({
+        address: '0x8178f0844F08543A0Bd4956D892ef462BD7e71C4',
+        abi: OceanABI,
+        walletClient,
+    })
 
     const openTokenPicker = () => setTokenPickerOpened(true)
     const closeTokenPicker = () => setTokenPickerOpened(false)
+
+    const getOutputAmount = async () => {
+        const result = await contract.read.totalSupply();
+        console.log(result);
+    }
 
     return (
         <CurrencyContainer>
