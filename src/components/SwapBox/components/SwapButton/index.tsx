@@ -4,15 +4,22 @@ import { Chain } from 'viem'
 
 type SwapButtonProps = {
     chain: Chain | undefined
+    isFetching: boolean
 }
 
-export const SwapButton = ({ chain }: SwapButtonProps) => {
+export const SwapButton = ({ chain, isFetching }: SwapButtonProps) => {
     const getButtonLabel = () => {
         if (!chain) return 'Please Connect a Wallet'
 
+        if (isFetching) return 'FETCHING...'
+
         return 'APPROVE'
     }
-    return <StyledButton disabled={!chain}>{getButtonLabel()}</StyledButton>
+    return (
+        <StyledButton disabled={!chain || isFetching}>
+            {getButtonLabel()}
+        </StyledButton>
+    )
 }
 
 const StyledButton = styled.button`
