@@ -1,10 +1,9 @@
-import { TokenInfo } from '@uniswap/token-lists'
 import styled from 'styled-components'
 
 import { Chain } from 'viem'
 
 type SwapButtonProps = {
-    inputAmount: TokenInfo
+    inputAmount: string
     chain: Chain | undefined
     isFetching: boolean
 }
