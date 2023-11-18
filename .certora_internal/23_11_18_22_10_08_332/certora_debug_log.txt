@@ -1,0 +1,16 @@
+Saving last configuration file to .certora_internal/23_11_18_22_10_08_332/run.conf
+There is no TAC file. Going to script EVMVerifier/certoraBuild.py to main_with_args()
+Creating dir /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_config
+In /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec, found the imports: []
+copying spec file /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec to /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_sources/.0_OceanHelper.spec.spec
+In /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec, found the imports: []
+writing /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_verify.json
+writing /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_verify.cvl1.json
+
+building file src/ocean/helper/OceanHelper.sol
+Running cmd /usr/local/bin/solc -o "/Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_config/OceanHelper.sol_0/" --overwrite --allow-paths "/Users/viraj/Development/contracts","node_modules/@nomiclabs/hardhat-ethers","node_modules/@nomiclabs/hardhat-etherscan","node_modules/@nomiclabs/hardhat-waffle","node_modules/@openzeppelin/contracts","node_modules/abdk-libraries-solidity","node_modules/chai","node_modules/ethereum-waffle","node_modules/ethereumjs-util","node_modules/ethers","node_modules/hardhat","node_modules/prettier-plugin-solidity","node_modules/prettier","node_modules/shell-v2-ocean","node_modules/solidity-coverage","node_modules/toml","node_modules/ts-node","node_modules/typescript",. --standard-json
+stdout, stderr = /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_config/OceanHelper.sol_0.standard.json.stdout, /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_config/OceanHelper.sol_0.standard.json.stderr
+build failed
+Failure traceback: 
+Exception: Failed to run /usr/local/bin/solc -o "/Users/viraj/Development/contracts/.certora_internal/23_11_18_22_10_08_332/.certora_config/OceanHelper.sol_0/" --overwrite --allow-paths "/Users/viraj/Development/contracts","node_modules/@nomiclabs/hardhat-ethers","node_modules/@nomiclabs/hardhat-etherscan","node_modules/@nomiclabs/hardhat-waffle","node_modules/@openzeppelin/contracts","node_modules/abdk-libraries-solidity","node_modules/chai","node_modules/ethereum-waffle","node_modules/ethereumjs-util","node_modules/ethers","node_modules/hardhat","node_modules/prettier-plugin-solidity","node_modules/prettier","node_modules/shell-v2-ocean","node_modules/solidity-coverage","node_modules/toml","node_modules/ts-node","node_modules/typescript",. --standard-json, exit code 1
+Encountered an error running Certora Prover, please contact Certora; consider running the script again with --debug to find out why it failed

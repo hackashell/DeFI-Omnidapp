@@ -1,0 +1,8 @@
+{
+    "importFilesToOrigRelpaths": {},
+    "primary_contract": "OceanHelper",
+    "specfile": "/Users/viraj/Development/contracts/certora/specs/OceanHelper.spec",
+    "specfileOrigRelpath": "certora/specs/OceanHelper.spec",
+    "specfilesToImportDecls": {},
+    "type": "spec"
+}

@@ -67,7 +67,6 @@ contract UniswapV4Adapter is OceanAdapter, ILockCallback {
         tickSpacing = key_.tickSpacing;
 
         poolId = PoolId.wrap(keccak256(abi.encode(key_)));
-     
         IPoolManager(primitive_).initialize(key_, sqrtPriceX96_, hookData_);
     }
 
