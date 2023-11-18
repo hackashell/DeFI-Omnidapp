@@ -8,24 +8,25 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import {
-    mainnet,
-    arbitrum,
-    avalanche,
-    optimism,
-    polygon,
-    zkSync,
-    gnosis
+    sepolia,
+    arbitrumSepolia,
+    polygonMumbai,
+    polygonZkEvmTestnet,
+    gnosisChiado,
+    scrollTestnet,
+    lineaTestnet,
+    celoAlfajores
 } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient } = configureChains(
-    [mainnet, arbitrum, avalanche, gnosis, optimism, polygon, zkSync],
+    [sepolia, arbitrumSepolia, polygonMumbai, polygonZkEvmTestnet, gnosisChiado, scrollTestnet, lineaTestnet, celoAlfajores],
     [publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({
-    appName: 'My RainbowKit App',
-    projectId: 'YOUR_PROJECT_ID',
+    appName: 'DeFi Omni Dapp (powered by Shell Protocol)',
+    projectId: 'OMNI_DAPP',
     chains
 })
 
