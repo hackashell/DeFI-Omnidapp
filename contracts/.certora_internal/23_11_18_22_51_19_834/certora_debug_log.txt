@@ -1,0 +1,44 @@
+Saving last configuration file to .certora_internal/23_11_18_22_51_19_834/run.conf
+There is no TAC file. Going to script EVMVerifier/certoraBuild.py to main_with_args()
+Creating dir /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config
+In /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec, found the imports: []
+copying spec file /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec to /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_sources/.0_OceanHelper.spec.spec
+In /Users/viraj/Development/contracts/certora/specs/OceanHelper.spec, found the imports: []
+writing /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_verify.json
+writing /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_verify.cvl1.json
+
+building file src/ocean/helper/OceanHelper.sol
+Running cmd /usr/local/bin/solc -o "/Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config/OceanHelper.sol_0/" --overwrite --allow-paths "/Users/viraj/Development/contracts","node_modules/@nomiclabs/hardhat-ethers","node_modules/@nomiclabs/hardhat-etherscan","node_modules/@nomiclabs/hardhat-waffle","node_modules/@openzeppelin/contracts","node_modules/abdk-libraries-solidity","node_modules/chai","node_modules/ethereum-waffle","node_modules/ethereumjs-util","node_modules/ethers","node_modules/hardhat","node_modules/prettier-plugin-solidity","node_modules/prettier","node_modules/shell-v2-ocean","node_modules/solidity-coverage","node_modules/toml","node_modules/ts-node","node_modules/typescript",. --standard-json
+stdout, stderr = /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config/OceanHelper.sol_0.standard.json.stdout, /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config/OceanHelper.sol_0.standard.json.stderr
+Exitcode 0
+Solc run /usr/local/bin/solc -o "/Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config/OceanHelper.sol_0/" --overwrite --allow-paths "/Users/viraj/Development/contracts","node_modules/@nomiclabs/hardhat-ethers","node_modules/@nomiclabs/hardhat-etherscan","node_modules/@nomiclabs/hardhat-waffle","node_modules/@openzeppelin/contracts","node_modules/abdk-libraries-solidity","node_modules/chai","node_modules/ethereum-waffle","node_modules/ethereumjs-util","node_modules/ethers","node_modules/hardhat","node_modules/prettier-plugin-solidity","node_modules/prettier","node_modules/shell-v2-ocean","node_modules/solidity-coverage","node_modules/toml","node_modules/ts-node","node_modules/typescript",. --standard-json time: 0.2226
+reading standard json data from /Users/viraj/Development/contracts/.certora_internal/23_11_18_22_51_19_834/.certora_config/OceanHelper.sol_0.standard.json.stdout
+build failed
+Failure traceback: 
+Shared.certoraUtils.CertoraUserInputError: /usr/local/bin/solc had an error:
+TypeError: No arguments passed to the base constructor. Specify the arguments or mark "OceanHelper" as abstract.
+  --> /Users/viraj/Development/contracts/src/ocean/helper/OceanHelper.sol:10:1:
+   |
+10 | contract OceanHelper is Ocean {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: Base constructor parameters:
+   --> /Users/viraj/Development/contracts/src/ocean/Ocean.sol:169:16:
+    |
+169 |     constructor(string memory uri_) OceanERC1155(uri_) {
+    |                ^^^^^^^^^^^^^^^^^^^^
+
+
+Encountered an error running Certora Prover:
+/usr/local/bin/solc had an error:
+TypeError: No arguments passed to the base constructor. Specify the arguments or mark "OceanHelper" as abstract.
+  --> /Users/viraj/Development/contracts/src/ocean/helper/OceanHelper.sol:10:1:
+   |
+10 | contract OceanHelper is Ocean {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: Base constructor parameters:
+   --> /Users/viraj/Development/contracts/src/ocean/Ocean.sol:169:16:
+    |
+169 |     constructor(string memory uri_) OceanERC1155(uri_) {
+    |                ^^^^^^^^^^^^^^^^^^^^
+
+

@@ -1,0 +1,10 @@
+[
+    {
+        "importFilesToOrigRelpaths": {},
+        "primary_contract": "OceanHelper",
+        "specfile": ".certora_internal/23_11_18_22_15_07_943/.certora_sources/.0_OceanHelper.spec.spec",
+        "specfileOrigRelpath": "certora/specs/OceanHelper.spec",
+        "specfilesToImportDecls": {},
+        "type": "spec"
+    }
+]

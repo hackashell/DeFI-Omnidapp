@@ -1,0 +1,26 @@
+{
+    "CLI_version": "4.13.1",
+    "branch": "main",
+    "conf": {
+        "files": [
+            "src/ocean/helper/OceanHelper.sol"
+        ],
+        "loop_iter": "3",
+        "msg": "Verification of the Ocean",
+        "optimistic_loop": true,
+        "process": "emv",
+        "rule_sanity": "basic",
+        "send_only": true,
+        "server": "production",
+        "verify": "OceanHelper:certora/specs/OceanHelper.spec"
+    },
+    "cwd_relative": ".",
+    "dirty": false,
+    "origin": "https://github.com/hackashell/contracts.git",
+    "raw_args": [
+        "/Users/viraj/.venv/certora/bin/certoraRun",
+        "certora/conf/OceanHelper.conf"
+    ],
+    "revision": "b4a77392d803709f95959e9f004707aad1ed5bf2",
+    "timestamp": "1700323808.642715"
+}
